@@ -9,7 +9,7 @@ Cтудента группы 153502\
 
 
 
-## Блок-схема:
+## Диаграмма классов:
 ![Kursach](https://user-images.githubusercontent.com/80688100/222981709-47f8ebc0-720a-4ad0-aab8-9b9c82ed4434.svg)
 
 
