@@ -1,6 +1,8 @@
 #ifndef BASICSHAPE_H
 #define BASICSHAPE_H
 
+#include "game/TetrisLayout.h"
+
 class BasicShape
 {
 public:
