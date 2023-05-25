@@ -52,7 +52,6 @@ TetrisLayout Game::getCurrentLayout()
 
 std::vector<TetrisLayout> Game::getCachedFigures()
 {
-    int m = cachedFigures.size();
     std::vector<TetrisLayout> result;
     for (int i = 0; i < cachedFigures.size(); i++)
         result.push_back(cachedFigures[i]->getLayout());
