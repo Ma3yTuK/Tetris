@@ -8,7 +8,7 @@ class Game;
 #include "game/GameScore.h"
 #include <vector>
 #include <memory>
-#include <queue>
+#include <deque>
 #include <functional>
 
 class Game
@@ -23,7 +23,7 @@ protected:
     int cacheSize;
     NotActiveShape notActiveShape;
     GameScore score;
-    std::queue<FigurePtr> cachedFigures;
+    std::deque<FigurePtr> cachedFigures;
     bool tick();
 
 public:
@@ -32,10 +32,10 @@ public:
     void addColor(int color) { colors.push_back(color); }
     void removeColor(int color);
     void addFigureType(const FigureCreator& figureCreator) { figureCreators.push_back(figureCreator); }
-    void removeFigureType(const AbstractFigureShape& figure);
+    void removeFigureType(const TetrisLayout& figureType);
     void setCacheSize(int size) { cacheSize = size; }
     GameScore getScore() { return score; }
-    std::queue<FigurePtr> getCachedFigures() { return cachedFigures; }
+    std::vector<TetrisLayout> getCachedFigures();
     TetrisLayout getCurrentLayout();
     void prepare();
     bool rotateRight();

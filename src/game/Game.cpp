@@ -7,11 +7,11 @@ bool Game::tick()
     activeFigure->moveBot();
     if (notActiveShape.interfireWith(*activeFigure))
     {
-        cachedFigures.pop();
+        cachedFigures.pop_front();
         activeFigure->moveTop();
         if (!notActiveShape.combineWith(*activeFigure))
             return false;
-        cachedFigures.push(FigurePtr(figureCreators[rand()%figureCreators.size()](notActiveShape.getHeight(), notActiveShape.getWidth(), colors[rand()%colors.size()])));
+        cachedFigures.push_back(FigurePtr(figureCreators[rand()%figureCreators.size()](notActiveShape.getHeight(), notActiveShape.getWidth(), colors[rand()%colors.size()])));
         score.figures++;
         score.lines += notActiveShape.removeFullLines();
     }
@@ -31,6 +31,18 @@ void Game::removeColor(int color)
     }
 }
 
+void Game::removeFigureType(const TetrisLayout& figureType)
+{
+    for (auto it = figureCreators.begin(); it != figureCreators.end(); it++)
+    {
+        if ((*it)(notActiveShape.getHeight(), notActiveShape.getWidth(), 1)->getLayout() == figureType)
+        {
+            figureCreators.erase(it);
+            return;
+        }
+    }
+}
+
 TetrisLayout Game::getCurrentLayout()
 {
     TetrisLayout result = notActiveShape.getLayout();
@@ -38,12 +50,21 @@ TetrisLayout Game::getCurrentLayout()
     return result;
 }
 
+std::vector<TetrisLayout> Game::getCachedFigures()
+{
+    int m = cachedFigures.size();
+    std::vector<TetrisLayout> result;
+    for (int i = 0; i < cachedFigures.size(); i++)
+        result.push_back(cachedFigures[i]->getLayout());
+    return result;
+}
+
 void Game::prepare()
 {
     while (cachedFigures.size() > cacheSize)
-        cachedFigures.pop();
+        cachedFigures.pop_front();
     while (cachedFigures.size() < cacheSize)
-        cachedFigures.push(FigurePtr(figureCreators[rand()%figureCreators.size()](notActiveShape.getHeight(), notActiveShape.getWidth(), colors[rand()%colors.size()])));
+        cachedFigures.push_back(FigurePtr(figureCreators[rand()%figureCreators.size()](notActiveShape.getHeight(), notActiveShape.getWidth(), colors[rand()%colors.size()])));
     notActiveShape.reset();
     score.figures = 0;
     score.lines = 0;
