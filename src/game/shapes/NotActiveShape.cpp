@@ -1,16 +1,17 @@
 #include "game/shapes/NotActiveShape.h"
 
-void NotActiveShape::combineWith(const AbstractFigureShape& figure)
+bool NotActiveShape::combineWith(const AbstractFigureShape& figure)
 {
-    layout = figure.combineWith(layout);
+    return figure.combineWith(layout);
 }
 bool NotActiveShape::interfireWith(const AbstractFigureShape& figure)
 {
     return figure.interfireWith(layout);
 }
 
-void NotActiveShape::removeFullLines()
+int NotActiveShape::removeFullLines()
 {
+    int result = 0;
     for (int i = 0; i < layout.getHeight(); i++)
     {
         int j;
@@ -18,6 +19,10 @@ void NotActiveShape::removeFullLines()
             if (!layout(i, j))
                 break;
         if (j == layout.getWidth())
+        {
             layout.removeRowWithShift(i);
+            result++;
+        }
     }
+    return result;
 }

@@ -27,8 +27,9 @@ std::pair<int, int> TetrisFigureShape::map(int iToMap, int jToMap) const
     }
 }
 
-TetrisLayout TetrisFigureShape::combineWith(TetrisLayout otherLayout) const
+bool TetrisFigureShape::combineWith(TetrisLayout& otherLayout) const
 {
+    bool result = true;
     for (int i = 0; i < layout.getHeight(); i++)
     {
         for (int j = 0; j < layout.getWidth(); j++)
@@ -36,9 +37,11 @@ TetrisLayout TetrisFigureShape::combineWith(TetrisLayout otherLayout) const
             auto point = map(i, j);
             if (point.first >= 0)
                 otherLayout(point.first, point.second) = layout(i, j);
+            else
+                result = false;
         }
     }
-    return otherLayout;
+    return result;
 }
 
 bool TetrisFigureShape::interfireWith(const TetrisLayout& otherLayout) const

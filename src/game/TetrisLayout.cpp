@@ -31,6 +31,13 @@ void TetrisLayout::removeRowWithShift(int rowIndex)
     layout[0] = tmp;
 }
 
+void TetrisLayout::reset()
+{
+    for (int i = 0; i < height; i++)
+        for (int j = 0; j < width; j++)
+            layout[i][j] = 0;
+}
+
 int& TetrisLayout::operator()(int x, int y)
 {
     return layout[x][y];
@@ -46,6 +53,17 @@ void TetrisLayout::operator=(const TetrisLayout& obj)
     for (int i = 0; i < height; i++)
         for (int j = 0; j < width; j++)
             layout[i][j] = obj.layout[i][j];
+}
+
+bool TetrisLayout::operator==(const TetrisLayout& obj)
+{
+    if (height != obj.height || width != obj.width)
+        return false;
+    for (int i = 0; i < height; i++)
+        for (int j = 0; j < width; j++)
+            if ((bool)layout[i][j] != (bool)obj.layout[i][j])
+                return false;
+    return true;
 }
 
 TetrisLayout::~TetrisLayout()
