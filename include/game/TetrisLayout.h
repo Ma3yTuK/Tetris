@@ -1,20 +1,26 @@
 #ifndef TETRISLAYOUT_H
 #define TETRISLAYOUT_H
 
+class TetrisLayout;
+
+#include <array>
+
 class TetrisLayout
 {
-private:
-    int height;
-    int width;
+protected:
+    const int height;
+    const int width;
     int** layout;
-
 public:
     TetrisLayout(int height, int width);
     TetrisLayout(const TetrisLayout& obj);
+    TetrisLayout(std::initializer_list<std::initializer_list<int>> obj);
     int getWidth() const { return width; }
     int getHeight() const { return height; }
-    TetrisLayout operator|(const TetrisLayout& secondLayout);
+    void removeRowWithShift(int rowIndex);
     int& operator()(int x, int y);
+    const int& operator()(int x, int y) const;
+    void operator=(const TetrisLayout& obj);
     ~TetrisLayout();
 };
 
