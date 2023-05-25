@@ -4,7 +4,7 @@ TetrisLayout::TetrisLayout(int height, int width) : height(height), width(width)
 {
     layout = new int*[height];
     for (int i = 0; i < height; i++)
-        layout[i] = new int[width];
+        layout[i] = new int[width]();
 }
 
 TetrisLayout::TetrisLayout(const TetrisLayout& obj) : TetrisLayout(obj.height, obj.width)
@@ -14,18 +14,38 @@ TetrisLayout::TetrisLayout(const TetrisLayout& obj) : TetrisLayout(obj.height, o
             layout[i][j] = obj.layout[i][j];
 }
 
-TetrisLayout TetrisLayout::operator|(const TetrisLayout& secondLayout)
+TetrisLayout::TetrisLayout(std::initializer_list<std::initializer_list<int>> obj) : TetrisLayout(obj.size(), data(obj)[0].size())
 {
-    TetrisLayout result(*this);
     for (int i = 0; i < height; i++)
         for (int j = 0; j < width; j++)
-            result(i, j) |= secondLayout(i, j);
-    return result;
+            layout[i][j] = data(data(obj)[i])[j];
+}
+
+void TetrisLayout::removeRowWithShift(int rowIndex)
+{
+    int* tmp = layout[rowIndex];
+    for (int i = rowIndex; i > 0; i--)
+        layout[i] = layout[i-1];
+    for (int j = 0; j < width; j++)
+        tmp[j] = 0;
+    layout[0] = tmp;
 }
 
 int& TetrisLayout::operator()(int x, int y)
 {
     return layout[x][y];
+}
+
+const int& TetrisLayout::operator()(int x, int y) const
+{
+    return layout[x][y];
+}
+
+void TetrisLayout::operator=(const TetrisLayout& obj)
+{
+    for (int i = 0; i < height; i++)
+        for (int j = 0; j < width; j++)
+            layout[i][j] = obj.layout[i][j];
 }
 
 TetrisLayout::~TetrisLayout()
