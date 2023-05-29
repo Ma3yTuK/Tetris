@@ -32,10 +32,16 @@ set_target_properties(appTetris PROPERTIES
 )
 
 target_link_libraries(appTetris
+    PRIVATE Serializer
+    PRIVATE /opt/mongo-cxx-driver/lib/libbsoncxx.so
+    PRIVATE /opt/mongo-cxx-driver/lib/libmongocxx.so
     PRIVATE Qt6::Quick
+    PRIVATE Serializer
 )
 
 target_include_directories(appTetris
+    PRIVATE /opt/mongo-cxx-driver/include/mongocxx/v_noabi
+    PRIVATE /opt/mongo-cxx-driver/include/bsoncxx/v_noabi
     PRIVATE include
 )
 

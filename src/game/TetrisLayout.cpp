@@ -1,6 +1,6 @@
 #include "game/TetrisLayout.h"
 
-TetrisLayout::TetrisLayout(int height, int width) : height(height), width(width)
+TetrisLayout::TetrisLayout(const int& height, const int& width) : height(height), width(width)
 {
     layout = new int*[height];
     for (int i = 0; i < height; i++)
@@ -21,7 +21,7 @@ TetrisLayout::TetrisLayout(std::initializer_list<std::initializer_list<int>> obj
             layout[i][j] = data(data(obj)[i])[j];
 }
 
-void TetrisLayout::removeRowWithShift(int rowIndex)
+void TetrisLayout::removeRowWithShift(const int& rowIndex)
 {
     int* tmp = layout[rowIndex];
     for (int i = rowIndex; i > 0; i--)
@@ -38,12 +38,12 @@ void TetrisLayout::reset()
             layout[i][j] = 0;
 }
 
-int& TetrisLayout::operator()(int x, int y)
+int& TetrisLayout::operator()(const int& x, const int& y)
 {
     return layout[x][y];
 }
 
-const int& TetrisLayout::operator()(int x, int y) const
+const int& TetrisLayout::operator()(const int& x, const int& y) const
 {
     return layout[x][y];
 }

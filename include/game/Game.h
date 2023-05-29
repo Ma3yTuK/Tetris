@@ -27,10 +27,10 @@ protected:
     bool tick();
 
 public:
-    Game(int height, int width, std::vector<FigureCreator> figureCreators, std::vector<int> colors, int cacheSize = 1) :
+    Game(const int& height, const int& width, const std::vector<FigureCreator>& figureCreators, const std::vector<int>& colors, const int& cacheSize = 1) :
         figureCreators(figureCreators), colors(colors), cacheSize(cacheSize), notActiveShape(height, width), score(), cachedFigures() {}
-    void addColor(int color) { colors.push_back(color); }
-    void removeColor(int color);
+    void addColor(const int& color) { colors.push_back(color); }
+    void removeColor(const int& color);
     void addFigureType(const FigureCreator& figureCreator) { figureCreators.push_back(figureCreator); }
     void removeFigureType(const TetrisLayout& figureType);
     void setCacheSize(int size) { cacheSize = size; }

@@ -16,10 +16,10 @@ protected:
     int i;
     int j;
     int state;
-    std::pair<int, int> map(int iToMap, int jToMap) const;
+    std::pair<int, int> map(const int& iToMap, const int& jToMap) const;
 
 public:
-    TetrisFigureShape(TetrisLayout layout, int centerI, int centerJ, int gameHeight, int gameWidth) :
+    TetrisFigureShape(const TetrisLayout& layout, const int& centerI, const int& centerJ, const int& gameHeight, const int& gameWidth) :
         layout(layout), centerI(centerI), centerJ(centerJ), i((gameHeight - layout.getHeight())/2), j((gameWidth - layout.getWidth())/2), state(0) {}
     virtual bool combineWith(TetrisLayout& otherLayout) const override;
     virtual bool interfireWith(const TetrisLayout& otherLayout) const override;

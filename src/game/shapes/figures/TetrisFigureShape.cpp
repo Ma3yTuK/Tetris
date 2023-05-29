@@ -2,27 +2,25 @@
 
 const int TetrisFigureShape::STATE_COUNT = 4;
 
-std::pair<int, int> TetrisFigureShape::map(int iToMap, int jToMap) const
+std::pair<int, int> TetrisFigureShape::map(const int& iToMap, const int& jToMap) const
 {
-    iToMap -= centerI;
-    jToMap -= centerJ;
     switch (state)
     {
         case 0:
         {
-            return std::pair(i + iToMap, j + jToMap);
+            return std::pair(i + iToMap - centerI, j + jToMap - centerJ);
         }
         case 1:
         {
-            return std::pair(i + jToMap, j - iToMap);
+            return std::pair(i + jToMap - centerJ, j - iToMap + centerI);
         }
         case 2:
         {
-            return std::pair(i - iToMap, j - jToMap);
+            return std::pair(i - iToMap + centerI, j - jToMap + centerJ);
         }
         default:
         {
-            return std::pair(i - jToMap, j + iToMap);
+            return std::pair(i - jToMap + centerJ, j + iToMap - centerI);
         }
     }
 }

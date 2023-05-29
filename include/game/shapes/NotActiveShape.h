@@ -12,7 +12,7 @@ protected:
     TetrisLayout layout;
 
 public:
-    NotActiveShape(int height, int width) : layout(height, width) {}
+    NotActiveShape(const int& height, const int& width) : layout(height, width) {}
     int getHeight() { return layout.getHeight(); }
     int getWidth() { return layout.getWidth(); }
     bool combineWith(const AbstractFigureShape& figure);

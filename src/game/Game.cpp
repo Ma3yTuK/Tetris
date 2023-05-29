@@ -19,11 +19,11 @@ bool Game::tick()
     return true;
 }
 
-void Game::removeColor(int color)
+void Game::removeColor(const int& color)
 {
     for (auto it = colors.begin(); it != colors.end(); it++)
     {
-        if (*it = color)
+        if (*it == color)
         {
             colors.erase(it);
             return;

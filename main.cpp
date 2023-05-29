@@ -1,5 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include "db_access/MongoTetrisDB.h"
+#include "game/Game.h"
 
 
 int main(int argc, char *argv[])
